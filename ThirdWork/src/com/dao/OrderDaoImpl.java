@@ -24,26 +24,6 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		this.exesql(conn, sql, params);
 	}
 
-	public void update(Connection conn, Orders order) throws Exception {
-		String sql="update orders set orderDate=?,customerId=?,empId=? where orderId=?";
-		Object[] params={order.getOrderDate(),order.getCustomerId(),order.getEmpId(),order.getOrderId()};
-		this.exesql(conn, sql, params);
-	}
-
-	public Orders findByOrderId(Connection conn, int orderId) throws Exception {
-		Orders order=new Orders();
-		String sql="select * from Orders where orderId=?";
-		Object[] params={orderId};
-		ResultSet rs=this.getRs(conn, sql, params);
-		if(rs.next()){
-			order.setOrderId(rs.getInt("orderId"));
-			order.setOrderDate(rs.getString("orderDate"));
-			order.setCustomerId(rs.getInt("customerId"));
-			order.setEmpId(rs.getInt("empId"));
-		}
-		return order;
-	}
-
 	public PageModel<Orders> queryOrders(Connection conn, int currentPage,
 			int pagesize) throws Exception {
 		PageModel<Orders> pageModel=new PageModel<Orders>();

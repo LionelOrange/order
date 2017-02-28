@@ -79,58 +79,6 @@ public class OrderServiceDaoImpl implements OrderServiceDao {
 
 	}
 
-	public void update(Orders order) {
-		Connection conn=null;
-		try {
-			conn=DBHelper.getConn();
-			conn.setAutoCommit(false);
-			OrderDao dao=new OrderDaoImpl();
-			dao.update(conn, order);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally{
-			try {
-				DBHelper.closeAll(conn);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	public Orders findByOrderId(int orderId) {
-		Connection conn=null;
-		Orders order=null;
-		try {
-			conn=DBHelper.getConn();
-			conn.setAutoCommit(false);
-			OrderDao dao=new OrderDaoImpl();
-			order=dao.findByOrderId(conn, orderId);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally{
-			try {
-				DBHelper.closeAll(conn);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return order;
-	}
 
 	public PageModel<Orders> queryOrders(int currentPage, int pagesize) {
 		Connection conn=null;
